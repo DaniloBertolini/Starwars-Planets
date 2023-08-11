@@ -20,9 +20,9 @@ const tableKeys = [
 function Table() {
   const { planets, loading, filterName } = useContext(DataContext);
 
-  const planetsFiltered = planets.filter((planet) => {
-    planet.name.toLowerCase().includes(filterName.toLowerCase());
-  });
+  const planetsFiltered = planets.filter((planet) => (
+    planet.name.toLowerCase().includes(filterName.toLowerCase())
+  ));
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -37,7 +37,7 @@ function Table() {
           })}
         </tr>
       </thead>
-      {planets.map((data) => {
+      {planetsFiltered.map((data) => {
         return (
           <tbody key={ data.name }>
             <tr>

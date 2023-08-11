@@ -11,6 +11,7 @@ function App() {
     <div>
       <Header />
       <input
+        data-testid="name-filter"
         type="text"
         onChange={ ({ target }) => setFilterName(target.value) }
       />
