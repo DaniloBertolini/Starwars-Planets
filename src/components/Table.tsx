@@ -18,7 +18,15 @@ const tableKeys = [
 ];
 
 function Table() {
-  const { planets } = useContext(DataContext);
+  const { planets, loading, filterName } = useContext(DataContext);
+
+  const planetsFiltered = planets.filter((planet) => {
+    planet.name.toLowerCase().includes(filterName.toLowerCase());
+  });
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <table>
