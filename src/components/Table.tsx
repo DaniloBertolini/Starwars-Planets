@@ -32,7 +32,7 @@ function Table() {
   useEffect(() => {
     if (filterNumeric.column === '') return;
 
-    const planetsFiltered = planets.filter((planet: any) => {
+    const planetsFiltered = list.filter((planet: any) => {
       const { column, comparison, value } = filterNumeric;
 
       const planetValue = Number(planet[column]);
@@ -87,7 +87,6 @@ function Table() {
           </tbody>
         );
       })}
-      <button type="button" onClick={ () => console.log(list) }>Log</button>
     </table>
   );
 }

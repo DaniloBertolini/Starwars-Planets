@@ -1,13 +1,15 @@
 import { useContext, useState } from 'react';
 import DataContext from '../context/dataContext';
 
+const newObj = {
+  column: 'population',
+  comparison: 'maior que',
+  value: 0,
+};
+
 function Form() {
-  const { setFilterNumeric } = useContext(DataContext);
-  const [filters, setFilters] = useState({
-    column: 'population',
-    comparison: 'maior que',
-    value: 0,
-  });
+  const { setFilterNumeric, setDataList } = useContext(DataContext);
+  const [filters, setFilters] = useState(newObj);
   const handleSUbmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFilterNumeric(filters);
@@ -52,7 +54,17 @@ function Form() {
         value={ filters.value }
       />
 
-      <button type="submit" data-testid="button-filter">FILTRAR</button>
+      <button type="submit" data-testid="button-filter">Filtrar</button>
+      <button
+        type="button"
+        onClick={ () => {
+          setFilters(newObj);
+          // setDataList();
+        } }
+      >
+        Limpar
+
+      </button>
     </form>
   );
 }

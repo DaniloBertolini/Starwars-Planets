@@ -3,6 +3,7 @@ import { StarWarsData } from '../type';
 
 type TypeContext = {
   planets: StarWarsData[];
+  setDataList: Dispatch<SetStateAction<StarWarsData[]>>;
   loading: boolean;
   filterName: string;
   setFilterName: (value: string) => void;
@@ -16,6 +17,8 @@ type TypeContext = {
     comparison: string;
     value: number;
   }>>;
+  dataFetch: StarWarsData[];
+  setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;
 };
 
 const DataContext = createContext({} as TypeContext);
