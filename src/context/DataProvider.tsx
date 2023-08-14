@@ -7,6 +7,11 @@ function DataProvider({ children }: { children: React.ReactNode }) {
   const [dataList, setDataList] = useState<StarWarsData[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterName, setFilterName] = useState('');
+  const [filterNumeric, setFilterNumeric] = useState({
+    column: '',
+    comparison: '',
+    value: 0,
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -25,6 +30,8 @@ function DataProvider({ children }: { children: React.ReactNode }) {
         loading,
         filterName,
         setFilterName,
+        filterNumeric,
+        setFilterNumeric,
       } }
     >
       {children}
