@@ -27,7 +27,6 @@ function Table() {
       planet.name.toLowerCase().includes(filterName.toLowerCase())
     ));
     setList(planetsFiltered);
-    console.log('1');
   }, [filterName, planets]);
 
   useEffect(() => {
@@ -40,20 +39,16 @@ function Table() {
 
       switch (comparison) {
         case 'maior que':
-          console.log('maior que');
           return planetValue > value;
         case 'menor que':
-          console.log('menor que');
           return planetValue < value;
         case 'igual a':
-          console.log('igual a');
-          return planetValue === value;
+          return planetValue === Number(value);
         default:
           break;
       }
+      return false;
     });
-
-    console.log(planetsFiltered);
 
     setList(planetsFiltered);
   }, [filterNumeric, planets]);
@@ -92,6 +87,7 @@ function Table() {
           </tbody>
         );
       })}
+      <button type="button" onClick={ () => console.log(list) }>Log</button>
     </table>
   );
 }

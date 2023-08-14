@@ -5,7 +5,7 @@ function Form() {
   const { setFilterNumeric } = useContext(DataContext);
   const [filters, setFilters] = useState({
     column: 'population',
-    comparison: 'maior_que',
+    comparison: 'maior que',
     value: 0,
   });
   const handleSUbmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,10 +27,10 @@ function Form() {
         value={ filters.column }
       >
         <option value="population">population</option>
-        <option value="orbital_period">orbital period</option>
+        <option value="orbital period">orbital_period</option>
         <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation period</option>
-        <option value="surface_water">surface water</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
       </select>
 
       <select
@@ -39,9 +39,9 @@ function Form() {
         data-testid="comparison-filter"
         value={ filters.comparison }
       >
-        <option value="maior_que">maior que</option>
-        <option value="menor_que">menor que</option>
-        <option value="igual">igual</option>
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
 
       <input
