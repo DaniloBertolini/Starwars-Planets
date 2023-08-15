@@ -28,9 +28,9 @@ function Table() {
     list,
   } = useContext(DataContext);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [planets]);
+  // }, [planets]);
 
   useEffect(() => {
     const planetsFiltered = list.filter((planet) => (

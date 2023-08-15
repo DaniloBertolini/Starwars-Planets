@@ -42,6 +42,14 @@ function Form() {
     ]);
   };
 
+  const handleRemoveFilter = (e: string) => {
+    setOptionsValues([
+      ...optionsValues,
+      e.split(' ')[0],
+    ]);
+    setArrayFilters(arrayFilters.filter((filter) => filter !== e));
+  };
+
   return (
     <>
       <form onSubmit={ handleSubmit }>
@@ -91,14 +99,21 @@ function Form() {
             setOptionsValues(optionsValuesArray);
             setArrayFilters([]);
           } }
+          data-testid="button-remove-filters"
         >
-          Limpar
+          Remover Filtros
         </button>
       </form>
       <section>
         {arrayFilters.map((filter) => (
-          <div key={ filter }>
+          <div data-testid="filter" key={ filter }>
             <p>{ filter }</p>
+            <button
+              onClick={ () => handleRemoveFilter(filter) }
+            >
+              X
+
+            </button>
           </div>
         ))}
       </section>
