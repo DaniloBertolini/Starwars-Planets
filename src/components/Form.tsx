@@ -7,7 +7,7 @@ const newObj = {
   value: 0,
 };
 
-const optionsValues = [
+const optionsValuesArray = [
   'population',
   'orbital_period',
   'diameter',
@@ -16,7 +16,8 @@ const optionsValues = [
 ];
 
 function Form() {
-  const { setFilterNumeric, setDataList } = useContext(DataContext);
+  const { setFilterNumeric, setDataList, list } = useContext(DataContext);
+  const [optionsValues, setOptionsValues] = useState<string[]>(optionsValuesArray);
   const [filters, setFilters] = useState(newObj);
   const [arrayFilters, setArrayFilters] = useState<string[]>([]);
 
@@ -28,6 +29,13 @@ function Form() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFilterNumeric(filters);
+    const newOptionsValues = optionsValues.filter((value) => value !== filters.column);
+    setOptionsValues(newOptionsValues);
+    setFilters({
+      ...filters,
+      column: newOptionsValues[0],
+    });
+
     setArrayFilters([
       ...arrayFilters,
       `${filters.column} ${filters.comparison} ${filters.value}`,
@@ -67,23 +75,32 @@ function Form() {
           value={ filters.value }
         />
 
-        <button type="submit" data-testid="button-filter">Filtrar</button>
+        <button
+          type="submit"
+          data-testid="button-filter"
+          disabled={ optionsValues.length === 0 }
+        >
+          Filtrar
+
+        </button>
         <button
           type="button"
           onClick={ () => {
             setFilters(newObj);
-            // setDataList();
+            setDataList([...list]);
+            setOptionsValues(optionsValuesArray);
+            setArrayFilters([]);
           } }
         >
           Limpar
         </button>
       </form>
       <section>
-        {/* {arrayFilters.map((filter) => (
+        {arrayFilters.map((filter) => (
           <div key={ filter }>
             <p>{ filter }</p>
           </div>
-        ))} */}
+        ))}
       </section>
     </>
   );

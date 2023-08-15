@@ -25,12 +25,15 @@ function Table() {
     filterName,
     filterNumeric,
     setDataList,
+    list,
   } = useContext(DataContext);
 
-  // const [list, setList] = useState<StarWarsData[]>([]);
+  useEffect(() => {
+
+  }, [planets]);
 
   useEffect(() => {
-    const planetsFiltered = planets.filter((planet) => (
+    const planetsFiltered = list.filter((planet) => (
       planet.name.toLowerCase().includes(filterName.toLowerCase())
     ));
 

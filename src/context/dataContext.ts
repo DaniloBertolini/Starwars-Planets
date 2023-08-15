@@ -17,6 +17,7 @@ type TypeContext = {
     comparison: string;
     value: number;
   }>>;
+  list: StarWarsData[];
   // dataFetch: StarWarsData[];
   // setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;
 };

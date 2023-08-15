@@ -5,6 +5,7 @@ import { fetchPlanetsSW } from '../service/functions';
 
 function DataProvider({ children }: { children: React.ReactNode }) {
   const [dataList, setDataList] = useState<StarWarsData[]>([]);
+  const [list, setList] = useState<StarWarsData[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterName, setFilterName] = useState('');
   const [filterNumeric, setFilterNumeric] = useState({
@@ -18,10 +19,13 @@ function DataProvider({ children }: { children: React.ReactNode }) {
     const functionAwait = async () => {
       const fetchData = await fetchPlanetsSW();
       setDataList(fetchData);
+      setList(fetchData);
       setLoading(false);
     };
     functionAwait();
   }, []);
+
+  // console.log(filterName);
 
   return (
     <DataContext.Provider
@@ -33,6 +37,7 @@ function DataProvider({ children }: { children: React.ReactNode }) {
         setFilterName,
         filterNumeric,
         setFilterNumeric,
+        list,
       } }
     >
       {children}
