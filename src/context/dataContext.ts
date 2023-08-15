@@ -17,8 +17,8 @@ type TypeContext = {
     comparison: string;
     value: number;
   }>>;
-  dataFetch: StarWarsData[];
-  setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;
+  // dataFetch: StarWarsData[];
+  // setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;
 };
 
 const DataContext = createContext({} as TypeContext);

@@ -30,3 +30,9 @@ export type StarWarsDataFetch = {
   url: string;
   residents: string[];
 };
+
+export type NewObjType = {
+  column: 'population',
+  comparison: 'maior que',
+  value: 0,
+};

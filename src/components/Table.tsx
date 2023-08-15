@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import DataContext from '../context/dataContext';
-import { StarWarsData } from '../type';
+// import { StarWarsData } from '../type';
 
 const tableKeys = [
   'Name',
@@ -19,22 +19,29 @@ const tableKeys = [
 ];
 
 function Table() {
-  const { planets, loading, filterName, filterNumeric } = useContext(DataContext);
-  const [list, setList] = useState<StarWarsData[]>([]);
+  const {
+    planets,
+    loading,
+    filterName,
+    filterNumeric,
+    setDataList,
+  } = useContext(DataContext);
+
+  // const [list, setList] = useState<StarWarsData[]>([]);
 
   useEffect(() => {
     const planetsFiltered = planets.filter((planet) => (
       planet.name.toLowerCase().includes(filterName.toLowerCase())
     ));
-    setList(planetsFiltered);
-  }, [filterName, planets]);
+
+    setDataList(planetsFiltered);
+  }, [filterName]);
 
   useEffect(() => {
     if (filterNumeric.column === '') return;
 
-    const planetsFiltered = list.filter((planet: any) => {
+    const planetsFiltered = planets.filter((planet: any) => {
       const { column, comparison, value } = filterNumeric;
-
       const planetValue = Number(planet[column]);
 
       switch (comparison) {
@@ -50,8 +57,8 @@ function Table() {
       return false;
     });
 
-    setList(planetsFiltered);
-  }, [filterNumeric, planets]);
+    setDataList(planetsFiltered);
+  }, [filterNumeric]);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -66,7 +73,7 @@ function Table() {
           })}
         </tr>
       </thead>
-      {list.map((data) => {
+      {planets.map((data) => {
         return (
           <tbody key={ data.name }>
             <tr>

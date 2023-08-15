@@ -5,7 +5,6 @@ import { fetchPlanetsSW } from '../service/functions';
 
 function DataProvider({ children }: { children: React.ReactNode }) {
   const [dataList, setDataList] = useState<StarWarsData[]>([]);
-  const [dataFetch, setDataFetch] = useState<StarWarsData[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterName, setFilterName] = useState('');
   const [filterNumeric, setFilterNumeric] = useState({
@@ -34,8 +33,6 @@ function DataProvider({ children }: { children: React.ReactNode }) {
         setFilterName,
         filterNumeric,
         setFilterNumeric,
-        dataFetch,
-        setDataFetch,
       } }
     >
       {children}
