@@ -1,22 +1,9 @@
 import { useContext, useState } from 'react';
 import DataContext from '../context/dataContext';
-
-const newObj = {
-  column: 'population',
-  comparison: 'maior que',
-  value: 0,
-};
-
-const optionsValuesArray = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
+import { newObj, optionsValuesArray } from '../service/create';
 
 function Form() {
-  const { setFilterNumeric, setDataList, list } = useContext(DataContext);
+  const { filterNumeric, setFilterNumeric } = useContext(DataContext);
   const [optionsValues, setOptionsValues] = useState<string[]>(optionsValuesArray);
   const [filters, setFilters] = useState(newObj);
   const [arrayFilters, setArrayFilters] = useState<string[]>([]);
@@ -28,7 +15,11 @@ function Form() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFilterNumeric(filters);
+
+    setFilterNumeric([
+      ...filterNumeric,
+      filters,
+    ]);
     const newOptionsValues = optionsValues.filter((value) => value !== filters.column);
     setOptionsValues(newOptionsValues);
     setFilters({
@@ -48,6 +39,9 @@ function Form() {
       e.split(' ')[0],
     ]);
     setArrayFilters(arrayFilters.filter((filter) => filter !== e));
+    setFilterNumeric([
+      ...filterNumeric.filter((filter: any) => filter.column !== e.split(' ')[0]),
+    ]);
   };
 
   return (
@@ -89,21 +83,22 @@ function Form() {
           disabled={ optionsValues.length === 0 }
         >
           Filtrar
-
         </button>
         <button
           type="button"
           onClick={ () => {
             setFilters(newObj);
-            setDataList([...list]);
             setOptionsValues(optionsValuesArray);
             setArrayFilters([]);
+            setFilterNumeric([]);
           } }
           data-testid="button-remove-filters"
         >
           Remover Filtros
         </button>
       </form>
+
+      <h2>Filtros</h2>
       <section>
         {arrayFilters.map((filter) => (
           <div data-testid="filter" key={ filter }>

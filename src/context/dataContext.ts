@@ -7,16 +7,13 @@ type TypeContext = {
   loading: boolean;
   filterName: string;
   setFilterName: (value: string) => void;
-  filterNumeric: {
-    column: string;
-    comparison: string;
-    value: number;
-  };
-  setFilterNumeric: Dispatch<SetStateAction<{
-    column: string;
-    comparison: string;
-    value: number;
-  }>>;
+  filterNumeric: any;
+  setFilterNumeric: any;
+  // setFilterNumeric: Dispatch<SetStateAction<{
+  //   column: string;
+  //   comparison: string;
+  //   value: number;
+  // }>>;
   list: StarWarsData[];
   // dataFetch: StarWarsData[];
   // setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;

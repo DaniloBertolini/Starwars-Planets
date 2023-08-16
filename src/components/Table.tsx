@@ -1,22 +1,6 @@
 import { useContext, useEffect } from 'react';
 import DataContext from '../context/dataContext';
-// import { StarWarsData } from '../type';
-
-const tableKeys = [
-  'Name',
-  'Rotation Period',
-  'Orbital Period',
-  'Diameter',
-  'Climate',
-  'Gravity',
-  'Terrain',
-  'Surface Water',
-  'Population',
-  'Films',
-  'Created',
-  'Edited',
-  'Url',
-];
+import { tableKeys } from '../service/create';
 
 function Table() {
   const {
@@ -28,40 +12,34 @@ function Table() {
     list,
   } = useContext(DataContext);
 
-  // useEffect(() => {
-
-  // }, [planets]);
-
   useEffect(() => {
-    const planetsFiltered = list.filter((planet) => (
-      planet.name.toLowerCase().includes(filterName.toLowerCase())
-    ));
+    const filterNumericFunction = async () => {
+      const planetsFiltered = filterNumeric.reduce((acc: any, curr: any) => {
+        return acc.filter((planet: any) => {
+          const { column, comparison, value } = curr;
+          const planetValue = Number(planet[column]);
 
-    setDataList(planetsFiltered);
-  }, [filterName]);
+          switch (comparison) {
+            case 'maior que':
+              return planetValue > value;
+            case 'menor que':
+              return planetValue < value;
+            case 'igual a':
+              return planetValue === Number(value);
+            default:
+              break;
+          }
+          return false;
+        });
+      }, list).filter((planet: any) => (
+        planet.name.toLowerCase().includes(filterName.toLowerCase())
+      ));
 
-  useEffect(() => {
-    if (filterNumeric.column === '') return;
+      setDataList(planetsFiltered);
+    };
 
-    const planetsFiltered = planets.filter((planet: any) => {
-      const { column, comparison, value } = filterNumeric;
-      const planetValue = Number(planet[column]);
-
-      switch (comparison) {
-        case 'maior que':
-          return planetValue > value;
-        case 'menor que':
-          return planetValue < value;
-        case 'igual a':
-          return planetValue === Number(value);
-        default:
-          break;
-      }
-      return false;
-    });
-
-    setDataList(planetsFiltered);
-  }, [filterNumeric]);
+    filterNumericFunction();
+  }, [filterNumeric, filterName]);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -76,6 +54,7 @@ function Table() {
           })}
         </tr>
       </thead>
+
       {planets.map((data) => {
         return (
           <tbody key={ data.name }>

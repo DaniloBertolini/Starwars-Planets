@@ -8,11 +8,7 @@ function DataProvider({ children }: { children: React.ReactNode }) {
   const [list, setList] = useState<StarWarsData[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterName, setFilterName] = useState('');
-  const [filterNumeric, setFilterNumeric] = useState({
-    column: '',
-    comparison: '',
-    value: 0,
-  });
+  const [filterNumeric, setFilterNumeric] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -24,8 +20,6 @@ function DataProvider({ children }: { children: React.ReactNode }) {
     };
     functionAwait();
   }, []);
-
-  // console.log(filterName);
 
   return (
     <DataContext.Provider
