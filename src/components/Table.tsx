@@ -41,42 +41,48 @@ function Table() {
     filterNumericFunction();
   }, [filterNumeric, filterName]);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  // if (loading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          {tableKeys.map((tableKey) => {
-            return <th key={ tableKey }>{tableKey}</th>;
-          })}
-        </tr>
-      </thead>
-
-      {planets.map((data) => {
-        return (
-          <tbody key={ data.name }>
+    <main>
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <table>
+          <thead>
             <tr>
-              <td>{ data.name }</td>
-              <td>{ data.rotation_period }</td>
-              <td>{ data.orbital_period }</td>
-              <td>{ data.diameter }</td>
-              <td>{ data.climate }</td>
-              <td>{ data.gravity }</td>
-              <td>{ data.terrain }</td>
-              <td>{ data.surface_water }</td>
-              <td>{ data.population }</td>
-              <td>{ data.films }</td>
-              <td>{ data.created }</td>
-              <td>{ data.edited }</td>
-              <td>{ data.url }</td>
+              {tableKeys.map((tableKey) => {
+                return <th key={ tableKey }>{tableKey}</th>;
+              })}
             </tr>
-          </tbody>
-        );
-      })}
-    </table>
+          </thead>
+
+          {planets.map((data) => {
+            return (
+              <tbody key={ data.name }>
+                <tr>
+                  <td data-testid="planet-name">{ data.name }</td>
+                  <td>{ data.rotation_period }</td>
+                  <td>{ data.orbital_period }</td>
+                  <td>{ data.diameter }</td>
+                  <td>{ data.climate }</td>
+                  <td>{ data.gravity }</td>
+                  <td>{ data.terrain }</td>
+                  <td>{ data.surface_water }</td>
+                  <td>{ data.population }</td>
+                  <td>{ data.films }</td>
+                  <td>{ data.created }</td>
+                  <td>{ data.edited }</td>
+                  <td>{ data.url }</td>
+                </tr>
+              </tbody>
+            );
+          })}
+        </table>
+      )}
+    </main>
   );
 }
 

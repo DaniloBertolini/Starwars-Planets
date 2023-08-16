@@ -98,6 +98,43 @@ function Form() {
         </button>
       </form>
 
+      <form>
+        <select
+          id="column"
+          onChange={ () => console.log('oi') }
+          data-testid="column-sort"
+          value={ filters.column }
+        >
+          {optionsValues.map((value) => (
+            <option key={ `${value}-sort` } value={ value }>{value}</option>
+          ))}
+        </select>
+
+        <label htmlFor="asc">
+          Ascendente
+          <input
+            type="radio"
+            name="order"
+            id="asc"
+            data-testid="column-sort-input-asc"
+            value="ASC"
+          />
+        </label>
+
+        <label htmlFor="desc">
+          Descendente
+          <input
+            type="radio"
+            name="order"
+            id="desc"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+          />
+
+        </label>
+        <button data-testid="column-sort-button" type="button">Ordenar</button>
+      </form>
+
       <h2>Filtros</h2>
       <section>
         {arrayFilters.map((filter) => (
