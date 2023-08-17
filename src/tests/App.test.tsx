@@ -1,14 +1,23 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-import DataProvider from '../context/DataProvider';
+import { vi } from 'vitest';
+import { mockData } from './helpers/mockData';
+
+afterEach(() => {
+  vi.clearAllMocks();
+});
+
+beforeEach(async () => {
+  global.fetch = vi.fn().mockResolvedValue({
+    json: async () => (mockData),
+  });
+  render(<App />)
+  expect(global.fetch).toBeCalledTimes(1);
+
+});
 
 test('I am your test', () => {
-  render(
-    <DataProvider>
-      <App />
-    </DataProvider>
-  );
+
   const linkElement = screen.getByText(/Star Wars/i);
   expect(linkElement).toBeInTheDocument();
 });
