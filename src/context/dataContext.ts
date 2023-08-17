@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, createContext } from 'react';
-import { StarWarsData } from '../type';
+import { SortOptionsType, StarWarsData } from '../type';
 
 type TypeContext = {
   planets: StarWarsData[];
@@ -9,14 +9,9 @@ type TypeContext = {
   setFilterName: (value: string) => void;
   filterNumeric: any;
   setFilterNumeric: any;
-  // setFilterNumeric: Dispatch<SetStateAction<{
-  //   column: string;
-  //   comparison: string;
-  //   value: number;
-  // }>>;
   list: StarWarsData[];
-  // dataFetch: StarWarsData[];
-  // setDataFetch: Dispatch<SetStateAction<StarWarsData[]>>;
+  sort: SortOptionsType;
+  setSort: Dispatch<SetStateAction<SortOptionsType>>;
 };
 
 const DataContext = createContext({} as TypeContext);

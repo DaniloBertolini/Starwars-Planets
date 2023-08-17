@@ -36,3 +36,8 @@ export type NewObjType = {
   comparison: 'maior que',
   value: 0,
 };
+
+export type SortOptionsType = {
+  column: string,
+  sort: string,
+};

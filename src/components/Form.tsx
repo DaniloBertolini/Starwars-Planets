@@ -1,16 +1,22 @@
 import { useContext, useState } from 'react';
 import DataContext from '../context/dataContext';
-import { newObj, optionsValuesArray } from '../service/create';
+import { newObj, optionsValuesArray, sortOptions } from '../service/create';
 
 function Form() {
-  const { filterNumeric, setFilterNumeric } = useContext(DataContext);
+  const { filterNumeric, setFilterNumeric, setSort } = useContext(DataContext);
   const [optionsValues, setOptionsValues] = useState<string[]>(optionsValuesArray);
   const [filters, setFilters] = useState(newObj);
   const [arrayFilters, setArrayFilters] = useState<string[]>([]);
+  const [sortLocal, setSortLocal] = useState(sortOptions);
 
   const handleChange = (e: any) => {
     const { id, value } = e.target;
     setFilters({ ...filters, [id]: value });
+  };
+
+  const handleSort = (e: any) => {
+    const { name, value } = e.target;
+    setSortLocal({ ...sortLocal, [name]: value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +48,13 @@ function Form() {
     setFilterNumeric([
       ...filterNumeric.filter((filter: any) => filter.column !== e.split(' ')[0]),
     ]);
+  };
+
+  const handleRemoveAllFilters = () => {
+    setFilters(newObj);
+    setOptionsValues(optionsValuesArray);
+    setArrayFilters([]);
+    setFilterNumeric([]);
   };
 
   return (
@@ -86,12 +99,7 @@ function Form() {
         </button>
         <button
           type="button"
-          onClick={ () => {
-            setFilters(newObj);
-            setOptionsValues(optionsValuesArray);
-            setArrayFilters([]);
-            setFilterNumeric([]);
-          } }
+          onClick={ handleRemoveAllFilters }
           data-testid="button-remove-filters"
         >
           Remover Filtros
@@ -101,9 +109,10 @@ function Form() {
       <form>
         <select
           id="column"
-          onChange={ () => console.log('oi') }
+          onChange={ (e) => handleSort(e) }
           data-testid="column-sort"
-          value={ filters.column }
+          value={ sortLocal.column }
+          name="column"
         >
           {optionsValues.map((value) => (
             <option key={ `${value}-sort` } value={ value }>{value}</option>
@@ -114,10 +123,11 @@ function Form() {
           Ascendente
           <input
             type="radio"
-            name="order"
+            name="sort"
             id="asc"
             data-testid="column-sort-input-asc"
             value="ASC"
+            onClick={ (e) => handleSort(e) }
           />
         </label>
 
@@ -125,14 +135,22 @@ function Form() {
           Descendente
           <input
             type="radio"
-            name="order"
+            name="sort"
             id="desc"
             data-testid="column-sort-input-desc"
             value="DESC"
+            onClick={ (e) => handleSort(e) }
           />
 
         </label>
-        <button data-testid="column-sort-button" type="button">Ordenar</button>
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          onClick={ () => setSort(sortLocal) }
+        >
+          Ordenar
+
+        </button>
       </form>
 
       <h2>Filtros</h2>

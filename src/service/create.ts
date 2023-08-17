@@ -27,3 +27,8 @@ export const tableKeys = [
   'Edited',
   'Url',
 ];
+
+export const sortOptions = {
+  column: 'population',
+  sort: '',
+};

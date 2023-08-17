@@ -10,6 +10,7 @@ function Table() {
     filterNumeric,
     setDataList,
     list,
+    sort,
   } = useContext(DataContext);
 
   useEffect(() => {
@@ -33,13 +34,25 @@ function Table() {
         });
       }, list).filter((planet: any) => (
         planet.name.toLowerCase().includes(filterName.toLowerCase())
-      ));
+      )).sort((planetA: any, planetB: any) => {
+        const { column, sort: sortValue } = sort;
+        const planetAValue = Number(planetA[column]);
+        const planetBValue = Number(planetB[column]);
+
+        if (!planetAValue) return 1;
+        if (!planetBValue) return -1;
+
+        return (sortValue === 'ASC'
+          ? planetAValue - planetBValue
+          : planetBValue - planetAValue
+        );
+      });
 
       setDataList(planetsFiltered);
     };
 
     filterNumericFunction();
-  }, [filterNumeric, filterName]);
+  }, [filterNumeric, filterName, sort]);
 
   // if (loading) {
   //   return <h1>Loading...</h1>;
